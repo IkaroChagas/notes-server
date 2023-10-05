@@ -17,7 +17,7 @@ app.get("/api/notes", async (req, res) => {
 app.post("/api/notes", async (req, res) => {
     const { title, content } = req.body;
 
-    if(!title || content) {
+    if(!title || !content) {
         return res.status(400).send("Título e conteúdo são necessários")
     }
 
@@ -35,7 +35,7 @@ app.put("/api/notes/:id", async (req, res) => {
     const {title, content} = req.body;
     const id = parseInt(req.params.id);
 
-    if(!title || content) {
+    if(!title || !content) {
         return res.status(400).send("Os campos título e conteúdo são obrigatórios")
     }
 
