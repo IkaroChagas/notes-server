@@ -9,7 +9,6 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/api/notes", async (req, res) => {
-
     const note = await prisma.note.findMany();
 
     res.json(note);
@@ -29,6 +28,46 @@ app.post("/api/notes", async (req, res) => {
         res.json(note);
     } catch (err) {
         res.status(500).send("Ops, algo deu errado :(")
+    }
+});
+
+app.put("/api/notes/:id", async (req, res) => {
+    const {title, content} = req.body;
+    const id = parseInt(req.params.id);
+
+    if(!title || content) {
+        return res.status(400).send("Os campos título e conteúdo são obrigatórios")
+    }
+
+    if(!id || isNaN(id)) {
+        return res.status(400).send("ID é apenas com número válido")
+    }
+
+    try {
+        const updateNote = await prisma.note.update({
+            where: {id},
+            data: { title, content},
+        })
+        res.json(updateNote)
+    } catch (error) {
+        res.status(500).send("Ops, algo deu errado :(")
+    }
+});
+
+app.delete("/api/notes/:id", async (req, res) =>{
+    const id = parseInt(req.params.id)
+
+    if(!id || isNaN(id)) {
+        return res.status(400).send("ID deve ser um número inteiro")
+    }
+
+    try {
+        await prisma.note.delete({
+            where: { id }
+        });
+        res.status(204).send()
+    } catch (error) {
+        res.status(500).send("Ops, algo deu errado :(");
     }
 });
 
