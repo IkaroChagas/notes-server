@@ -6,8 +6,9 @@
   "engines": {
     "node": ">=16.13"
   },
+  "type": "module",
   "scripts": {
-    "start": "npx nodemon"
+    "start": "node ./src/index.ts"
   },
   "author": "",
   "license": "ISC",
