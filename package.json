@@ -2,13 +2,13 @@
   "name": "notes-server",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/index.js",
+  "main": "./src/app.js",
   "engines": {
     "node": ">=16.13"
   },
   "type": "module",
   "scripts": {
-    "start": "node build/index.js"
+    "start": "node build/app.js"
   },
   "author": "",
   "license": "ISC",
