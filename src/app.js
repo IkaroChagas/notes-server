@@ -4,9 +4,11 @@ import { PrismaClient } from "@prisma/client";
 
 const app = express();
 const prisma = new PrismaClient();
+const port = process.env.DATABASE_URL || 5000;  
 
 app.use(express.json());
 app.use(cors());
+
 
 app.get("/api/notes", async (req, res) => {
     const note = await prisma.note.findMany();
@@ -71,6 +73,6 @@ app.delete("/api/notes/:id", async (req, res) =>{
     }
 });
 
-app.listen(5000, () => {
+app.listen(port, () => {
     console.log("Servidor rodando na porta 5000")
 });
