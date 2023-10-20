@@ -1,5 +1,5 @@
-const express = require (express);
-const cors = require (cors);
+import express from (express);
+import cors from (cors);
 import { PrismaClient } from "@prisma/client";
 
 const app = express();
@@ -8,7 +8,6 @@ const port = process.env.DATABASE_URL || 5000;
 
 app.use(express.json());
 app.use(cors());
-
 
 app.get("/api/notes", async (req, res) => {
     const note = await prisma.note.findMany();
