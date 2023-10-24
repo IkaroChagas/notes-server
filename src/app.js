@@ -1,13 +1,19 @@
 import express from 'express';
 import cors from 'cors';
 import { PrismaClient } from "@prisma/client";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const prisma = new PrismaClient();
 const port = process.env.PORT || 5000;
+const databaseURL = process.env.DATABASE_URL;
 
 app.use(express.json());
 app.use(cors());
+
+prisma.$connect({ datasources: { db: { url: databaseURL } }});
 
 app.get("/api/notes", async (req, res) => {
     try {
